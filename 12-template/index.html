@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Littéraux de gabarit</title>
+</head>
+<body>
+    <h1>Template literals</h1>
+
+    <script>
+        // syntaxes littérales:
+
+        // Objet
+        const unObjet = { prop1: 'val1' };
+
+        // string
+        const uneChaine = 'une chaine';
+
+        // nombre
+        const unNombre = 123.45e67;
+
+        // booleen et null
+        true || false, null
+
+        // tableau
+        const monTableau = [ 1, 2, 3 ];
+
+        // Regex ( regular expression / expression rationnelle )
+        const reg = /[A-Z]{3}\d{2}/
+
+        // Template
+        // proche d'une expression de chaine (string)
+        // permet en plus:
+        //    - des interpollations (insertion de l'évaluation d'une expression en tant que chaine)
+        //    - des retours à la ligne
+        const uneChaine2 = `<p>${unObjet.prop1}</p>`;
+
+        class Product {
+            constructor(name, discounted=false) {
+                this.name = name;
+                this.discounted = discounted;
+            }
+
+            get classes() {
+                return this.discounted ? 'discounted' : '';
+            }
+
+            display() {
+                return `<p class="${this.classes}">${this.name}</p>`
+            }
+        }
+
+        const inP = text => `<p>${text}</p>`;
+
+        inP('premier texte');
+        inP('une autre valeur');
+
+    </script>
+
+</body>
+</html>
