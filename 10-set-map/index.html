@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set et Map</title>
+</head>
+<body>
+    <script>
+        // Principe générale:
+        //   alternatives au tableaux et objets pour gérer des collections d'éléments
+
+        // Les Set: principales caractéristiques
+        // - les valeurs ne sont représentées au maximum qu'une fois
+        // - il n'y a pas de notion d'ordre
+        const fruits = new Set(['pomme', 'poire']);
+
+        fruits.add('banane');
+        console.log(fruits);
+
+        fruits.add('pomme');
+        console.log(fruits);
+
+        fruits.delete('banane');
+        console.log(fruits);
+
+        fruits.forEach(function(value) {
+            console.log(value);
+        });
+
+        // entries() retourne un objet "Iterator" parcourable avec for..of
+        // chaque entrée est un tableau, couple clé + valeur
+        // dans un set pas de clé, donc 2x la valeur
+        for(const fruit of fruits.entries()) {
+            console.log(fruit);
+        }
+
+        const contacts = new Map();
+        contacts.set('Pierre', { email: 'pierre@example.com', desk: 5 });
+        contacts.set('Loïc', { email: 'loic@example.com', desk: 3 });
+        contacts.has('Pierre'); // true
+        contacts.get('Pierre'); // { email: 'pierre@example.com', desk: 5 }
+        contacts.delete('Pierre');
+
+        for(const contact of contacts.entries()) {
+            console.log(contact); // [key, value]
+        }
+
+        // Map et Set possèdent une déclinaison WeakMap et WeakSet
+        // Les différences sont
+        //    1. les valeurs ne peuvent pas être primitives, référence uniquement
+        //    2. les références sont "faibles", ie: non-comptabilisé par le Garbage Collector (afin de libérer la mémoire)
+        // ==> Un objet qui n'est plus référencé à l'extérieur du WeakMap ou du WeakSet sera supprimé en mémoire
+
+    </script>
+</body>
+</html>
