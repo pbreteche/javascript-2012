@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syntaxe de classe</title>
+</head>
+<body>
+    <script>
+        /**
+         * Permet de regrouper dans un même bloc de déclaration
+         * la fonction constructeur et l'ensemble des fonctions du prototype
+         * 
+         * 1 changement de comportement: la déclaration de classe n'est pas remontée
+         * comme les déclaration de fonction
+         */
+        class Commande {
+            constructor() {
+                this.produits = [];
+                this.total = 0;
+            }
+
+            ajouter (paramProduit, paramQte=1) {
+                this.produits.push({ produit: paramProduit, qte: paramQte });
+                this.total += paramProduit.prix * paramQte;
+            }
+
+            // Cette fonction n'est pass attachée au prototype
+            // mais est directement une propriété de la fonction constructeur
+            // Comme pour la syntaxe historique, static est "peu" utile
+            static example1() {
+                console.log('fonction statique', Commande.example2);
+            }
+
+            static example2 = 'une donnée';
+        }
+
+        /**
+         * Récupère automatiquement le prototype de Commande
+         * et y ajoute les fonctions déclarées
+         */
+        class CommandePremium extends Commande {
+            constructor(codeClient) {
+                // appel du constructeur de la classe parent
+                // obligatoire si on définit notre propre constructeur
+                // l'appel doit être fait avant tout accès à "this"
+                super();
+
+                this.codeClient = codeClient;
+            }
+        }
+
+        // L'usage se fait ensuite de la même manière qu'avec la syntaxe historique
+        const maCommande = new Commande();
+        maCommande.ajouter({ name: 'coucou', prix: 123 }, 7);
+        Commande.example1();
+
+
+        class LigneCommande {
+            constructor (up, qty) {
+                // Contrairement à Java, les propriétés n'ont pas déclaration en tant qu'attribut
+                // Elles sont créées par le constructeur
+                this.up = up;
+                this.qty = qy;
+            }
+
+            // pseudo propriété "get" et "set"
+            // get: accès en lecture sur la propriété
+            // set: accès en écriture
+            get total() {
+                return this.up * this.qty; 
+            }
+
+            //ici, je n'ai pas fait de set, on ne peut donc modifier le total
+        }
+
+        const ligne = new LigneCommande(19.90, 4);
+        console.log(ligne.up, ligne.qty, ligne.total);
+
+        // Pour avoir une variable privée, ce n'est pas simple
+        // Combinaison d'une Factory + IIFE
+        // Conclusion : Javascript n'est conçu pour de l'encapsulation
+        const fonctionAvecVariablePrivee = (function() {
+            let variablePrivee = 'test';
+
+            return function() {
+                console.log(variablePrivee);
+            }
+        })();
+
+        fonctionAvecVariablePrivee();
+
+    </script>
+</body>
+</html>
