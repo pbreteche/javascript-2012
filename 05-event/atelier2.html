@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--
+        Exemple de stratégie de création _id_ en HTML
+        Se baser sur un chemin éléments saillant / remarquables
+        Créer un chemin entre l'élément saillant le plus haut jusqu'à l'élément souhaité
+        Nommage de chaque élément en kebab-case
+        Séparation des éléments du chemin avec "--"
+
+        kebab-case, snake_case, UPPER_SNAKE_CASE, camelCase, PascalCase
+    -->
+    <div id="app-converter">
+        <div>
+            <label for="app-converter--km-input">KM</label>
+            <input type="number" id="app-converter--km-input" step="0.0000001">
+        </div>
+        <div>
+            <label for="app-converter--miles-input">Miles</label>
+            <input type="number" id="app-converter--miles-input" step="0.0000001">
+        </div>
+        <button id="app-converter--m2km-action">miles -> km</button>
+        <button id="app-converter--km2m-action">km -> miles</button>
+    </div>
+
+    <script>
+        /**
+         * Étapes de développement:
+         * 1. récupérer les KM et les afficher dans la console
+         * 2. récupérer les miles et écrire une valeur arbitraire
+         * 3. récupérer les KM et les afficher dans les miles
+         * 4. etc.
+         */
+
+        const app = document.querySelector('#app-converter');
+        const MILES_KM_RATIO = 1.609;
+        const kmInput = document.querySelector('#app-converter--km-input');
+        const mInput = document.querySelector('#app-converter--miles-input');
+
+        const km2mButtton = document.querySelector('#app-converter--km2m-action');
+        const m2kmButtton = document.querySelector('#app-converter--m2km-action');
+        
+        km2mButtton.addEventListener('click', function() {
+            mInput.value = parseFloat(kmInput.value / MILES_KM_RATIO).toFixed(6);
+        });        
+        m2kmButtton.addEventListener('click', function() {
+            kmInput.value = parseFloat(mInput.value * MILES_KM_RATIO).toFixed(6);
+        });
+
+        /**
+         * Quand le champs KM prend le focus:
+         *  - vider le champs Miles
+         *  - désactiver le bouton miles -> km
+         */
+        kmInput.addEventListener('focus', function() {
+            mInput.value = '';
+            m2kmButtton.disabled = true;
+        });
+        mInput.addEventListener('focus', function() {
+            kmInput.value = '';
+            km2mButtton.disabled = true;
+        });
+
+        kmInput.addEventListener('input', function() {
+            km2mButtton.disabled = '' === kmInput.value;
+        })
+        mInput.addEventListener('input', function() {
+            m2kmButtton.disabled = '' === mInput.value;
+        })
+
+        window.addEventListener('load', function() {
+            km2mButtton.disabled = true;
+            m2kmButtton.disabled = true;
+        });
+        
+        // Boites de dialogue modales
+        // Fonctionne de façon synchrone
+        // Extrêmement peu utilisée aujourd'hui
+        alert('Bonjour, je suis une boite de dialogue'); // juste un bouton "OK"
+        const confirmation = confirm('Voulez-vous ...'); // OK ou annuler : retourne un booléen
+        const response = prompt('Merci d\'indiquer votre code d\'accès'); // saisie de texte : retourne un string
+
+    </script>
+</body>
+</html>

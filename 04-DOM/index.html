@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM</title>
+</head>
+<body>
+    <h1>Document Object Model</h1>
+
+    <!-- section HTML de type "article" -->
+    <!-- section de contenu qui fait sens en elle-même -->
+    <!-- autres sections disponibles:
+        * aside : contenu contextuel, ce contenu n'a de sens que par la présence d'un aure contenu dans la page
+        * nav : pas réellement de contenu, mais plutôt deds moyens de navigation (liens hypertexte, formulaires)
+        * section : section générique, non typée, sert dans tous les autres cas
+    -->
+    <article id="article-presentation-dom">
+        <!-- attribut id permet de fournir un identifiant 
+            cette valeur doit respecter une double unicité
+            * un seul id par élément
+            * un seul élément par id (dans tout le document)
+            => à utiliser avec précaution car compliqué de garantir l'unicité si beaucoup d'ids
+        -->
+        <h1>Présentation du DOM</h1>
+        <!-- attribut class permet de "typer" d'avantage une élément -->
+        <!-- les classes sont cumulables et réutilisables -->
+        <p class="exergue web">Le DOM est une représentation, accessible par le javascript, des éléments qui composent notre page web.</p>
+        <p class="web">Les éléments forment une arborescence.</p>
+    </article>
+
+    <aside>
+        <h1>Auteur: Pierre</h1>
+        <p>Pierre est formateur en web.</p>
+    </aside>
+
+    <script>
+        // objet global par défaut
+        // parce que nous sommes en web
+        console.log(window);
+        // en réalité, tous les autres objets "globaux", sont des propriétés de window
+        window.console.log('test');
+
+        // accès au DOM via window.document
+        console.log(document);
+
+        // Exemple de manipulation du DOM
+        const titrePrincipal = document.body.children[0];
+        titrePrincipal.style.color = 'forestgreen';
+
+        // accès à un élément par son identifiant
+        // le navigateur maintient un index des identifiants
+        // l'accès est donc direct
+        const monArticle = document.getElementById('article-presentation-dom');
+
+        // possibilité d'utiliser la syntaxe des sélecteurs (comme en CSS)
+        // moyen préféré aujourd'hui
+        const mesParagraphes = document.querySelectorAll('p');
+
+        // la recherche s'arrête au premier résultat trouvé
+        // souvent utilisé si on s'attend à un résultat unique
+        const unSeulParagraphe = document.querySelector('p');
+
+        /* Syntaxe de sélecteur
+            Sélecteur de base
+            * balise: directement le nom de la balise, ex: p, h1, article
+            * classe: préfixer avec un ".", ex: .web, .exergue
+            * id: prefixer avec u "#", ex: #article-presentation-dom
+
+            Possibilité de combiner plusieurs sélecteurs de base
+        */
+
+        // pas de nécessité de chercher à partir de la racine "document"
+        const paragraphesDeArticle = monArticle.querySelectorAll('p');
+
+        // paragaphe avec la classe "web"
+        const paragraphesWebDeArticle = monArticle.querySelectorAll('p.web');
+
+        // peut se parcourir comme un tableau
+        for (const para of paragraphesDeArticle) {
+            console.log(para);
+        }
+
+        // exemples "historiques" d'accès aux éléments
+        const elements1 = document.getElementsByClassName('web');
+        const elements2 = document.getElementsByTagName('p');
+        
+
+    </script>
+</body>
+</html>

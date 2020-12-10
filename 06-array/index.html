@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array</title>
+</head>
+<body>
+    <script>
+        // tableau litéral : syntaxe entre crochets
+        const fruits1 = ['ananas', 'banane', 'cerise'];
+
+        // possibilité d'initialiser vide
+        const fruits2 = [];
+
+        // aucune contrainte de typage sur les éléments qui composent le tableau
+        // bonne pratique: créer des tableaux pour des éléments du même type => plus facile à manipuler
+        const fruits3 = ['string', 123.45e67, true, ['sous', 'tableau']];
+
+
+        // ajout d'éléments à la fin du tableau
+        fruits1.push('fin');
+        
+        // ajout d'éléments au début du tableau
+        fruits1.unshift('début');
+
+        console.log(fruits1);
+
+        // parcourir chaque élément du tableau
+        for (const fruit of fruits1) {
+            console.log(fruit);
+        }
+
+        // appeler une fonction avec chaque élément du tableau
+        // forEach nous passe en paramètre :
+        //  1. l'élément du tableau
+        //  2. sa position (en commençant par 0)
+        //  3. le tableau lui-même
+        //  la déclaration des paramètres reste libre (nommage)
+        fruits1.forEach(function(element, index) {
+            console.log(element, index);
+        })
+
+        // accéder à élément par sa position
+        console.log(fruits1[2]); // accès au troisième élément
+
+        // connaitre le nombre d'éléments
+        console.log(fruits1.length); // propriété spéciale, accès en lecture seule
+
+        // creer un nouveau tableau à partir de chaque élément du tableau d'origine
+        const upperFruits = fruits1.map(function(elt) {
+            return elt.toUpperCase(); // chaque élément (string) passe en majuscule
+        });
+        console.log(upperFruits);
+
+        // chercher la première position d'un élément spécifique
+        fruits1.indexOf('ananas'); // -1 si élément non trouvé
+        // chercher la première position d'un élément sur un critère
+        fruits1.find(function(elt) {
+            return elt.length > 4; // élément de plus de 4 caractères
+        });
+
+        // Retirer un élément du tableau
+        // au début
+        fruits1.shift()
+        // à la fin
+        fruits1.pop()
+        // une section à emplacement arbitraire
+        fruits1.splice(2, 1); // retire 1 élément à partir de l'index 2 (troisième élément)
+        // selon un critère
+        fruits1.filter(function(elt) {
+            return elt.length > 0; // conserve les chaînes non-vide
+        });
+
+        console.log(fruits1.join()); // assemble dans un chaine tous les éléments du tableau
+        // utile dans certains, exemple:
+        // transformer un tableau de dossiers / sous-dossier en URL
+        const dirs = ['dossier', 'sous_dossier'];
+        console.log(dirs.join('/'));
+        
+    </script>
+</body>
+</html>

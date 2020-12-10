@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Structure de contrôle</title>
+</head>
+<body>
+    <script>
+        // Structures de contrôle
+        // permet de piloter l'exécution ou non de certaines instructions
+        // I. structures conditionnelles
+        let totalCommande = 37.5;
+
+        // dans les parenthèses: expression booléenne
+        // le bloc est exécuté si expression est vraie
+        if (50 > totalCommande) {
+            console.log('Les frais de port sont offerts à partir de 50€. Ajouter un article ?');
+        }
+
+        // avec bloc alternatif "else"
+        if (50 > totalCommande) {
+            console.log('Les frais de port sont offerts à partir de 50€. Ajouter un article ?');
+        }
+        else {
+            console.log('Vous bénéficiez des frais de port offerts.');
+        }
+
+        // beaucoup moins utile: commutateur "switch"
+        let couleur = 'rouge';
+
+        // dépend du comparaison sur valeur exacte
+        // le code doit énumérer toutes les valeurs possibles de façon exhaustive
+        switch(couleur) {
+            // si on valeur est validée au niveau d'un case, on démarre l'exécution des instructions
+            case 'bleu':
+                console.log('bleu');
+            case 'vert':
+                console.log('vert');
+                break; // permet de sortir de la structure de contrôle.
+                // Nous amène à la fin du bloc d'instructions
+            case 'rouge':
+            case 'carmin':
+                console.log('rouge');
+                break;
+            // point d'entrée systématique
+            default:
+                console.log('couleur inconnue');
+        }
+
+
+        let total = 25.7;
+        // operateur ternaire condition ? valeur si vrai : valeur si faux
+        total = 50 > total ? total : total + 20;
+
+        // II. Structures iteratives
+        // Permet d'exécuter un certain nombre de fois un bloc d'instruction
+        let i = 12;
+        while (0 < i) {
+            console.log(i--); // attention à garantir l'arrêt de l'itération
+        }
+
+        let result = '';
+        let j = 0;
+
+        // possibilité de faire le test après l'exécution du bloc
+        do {
+            j = j + 1;
+            result = result + j;
+        } while (j < 5);
+
+        // ici la variable i est vraiment locale à la structure
+        // for (init; condition; incrément)
+        for (let i = 12; 0 < i; i--) { // i-- équivaut à i = i - 1
+            console.log(i);
+        }
+
+        const fruits = ['ananas', 'banane', 'cerise', 'datte'];
+        // for ("déclaration de variable" of "un tableau")
+        for (const fruit of fruits) {
+            console.log(fruit) // affiche 'ananas', puis 'banane', etc.
+        }
+
+        const contact = {
+            username: 'Pierre',
+            email: 'pbreteche@dawan.fr',
+            phone: '0123456789',
+        }
+
+        for (const info in contact) {
+            console.log(info, contact[info]); // affiche "username" "Pierre", puis etc.
+        }
+
+
+        // Exercice afficher les fruits dans une liste HTML
+        {
+            const fruits = ['ananas', 'banane', 'cerise', 'datte'];
+            let htmlList = '';
+            
+            for (const fruit of fruits) {
+                htmlList += '<li>' + fruit + '</li>';
+            }
+
+            htmlList = '<ul>' + htmlList + '</ul>';
+            console.log(htmlList);
+        }
+    </script>
+
+    <!-- commentaire HTML -->
+    <li>ananas</li>
+    <li>banane</li>
+    <li>cerise</li>
+    <li>datte</li>
+
+</body>
+</html>

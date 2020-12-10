@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Événements</title>
+</head>
+<body>
+    <form>
+        <input type="text" id="user-input" value="valeur-initiale">
+        <!-- par défaut, les boutons dans les formulaires sont des "submit" -->
+        <button type="button">OK</button>
+    </form>
+    <script>
+        const myButton = document.querySelector('button');
+
+        // Ajout d'un écouteur d'événement
+        // * à partir d'un élément du DOM
+        // * 2 paramètres:
+        //     - identifiant (string) de l'événement
+        //     - la fonction qui sera exécutée quand l'événement se produit
+        myButton.addEventListener('click', function() {
+            console.log('bouton cliqué');
+        });
+
+        const callbackClickButton = function() {
+            console.log('bouton cliqué 2');
+        }
+
+        // Attention à bien passer la référence de la fonction
+        // l'appel se faisant ultérieurement
+        myButton.addEventListener('dblclick', callbackClickButton);
+
+        // Possibilité de retirer l'écouteur si on possède la référence vers la fonction
+        myButton.removeEventListener('dblclick', callbackClickButton);
+
+        // Ancienne syntaxe DOM-0
+        // Toujours fonctionnel, mais déconseillée, car on travaille accessible à tous
+        // Tout code peut venir modifier cette propriété
+        myButton.onclick = callbackClickButton;
+
+
+        // Cycle de vie d'une variable
+        // réservation d'espace mémoire / libération de la mémoire
+        // libération de la mémoire quand plus aucune référence n'utilise cet espace
+        // nettoyage à interval régulier par le ramasse-miette (garbage-collector)
+        // Pour le développeur, on intervient via la portée des variables
+        {
+            // Création d'un référence pour la variable input
+            // cette référence existe juste pour la durée du bloc
+            const input = document.querySelector('#user-input');
+            myButton.addEventListener('click', function() {
+                // partage de la référence via l'accès au "scope" parent
+                console.log('input: ', input.value);
+            });
+            // fin du bloc, la référence vers la variable input est perdue
+            // sa "copie" de référence à l'intérieur de la fonction du clic est conservée
+            // par le gestionnaire d'événement
+        }
+
+
+        // Blocage du comportement par défaut du navigateur
+        // utilisation d'un paramètre qui sera passé par le gestionnaire d'événement
+        // ici, je nomme le paramètre "event" dans ma déclaration de fonction
+        myButton.addEventListener('click', function(event) {
+            event.preventDefault();
+        });
+
+    </script>
+</body>
+</html>

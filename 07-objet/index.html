@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objet</title>
+</head>
+<body>
+    <script>
+        // un objet javascript est avant tout un conteneur de propriétés 
+        // écriture litérale d'un objet
+        const unObjet = {
+            prop1: 'une valeur',
+            prop2: 12345
+        }
+
+        // La structure de tout objet peut être altérer à tout moment
+        // exemple: moification et ajout de propriété
+        unObjet.prop2 = 'autre valeur';
+        unObjet.nouvelleProp = 'nouvelle valeur';
+
+        // Une propriété peut avoir n'importe quelle valeur prise en charge par JS
+        // type primitif, reference (tableau, objet, function, etc.)
+        unObjet.propFunction = function() {
+            console.log('fonction interne à l\'objet');
+        }
+
+        // utile e grouper dans les propriétés d'un objet des variables et fonctions
+        // afin d'éviter de saturer l'espace de nommage global
+        // Par exemple, création d'un bibliothèque personnalisée:
+        const maBiblio = {};
+
+        // les noms de fonctions sont gérés en tant que nom de propriété
+        // ils n'entreront en collision avec d'autres noms déclarés ailleurs
+        maBiblio.somme = function(a, b) { return a + b; };
+        maBiblio.produit = function(a, b) { return a * b; };
+
+        // Fonction constructeur
+        // = fonction qui "consruit" un nouvel objet
+        // convention de nommage PascalCase
+        const Produit = function(nom, prix=0) {
+            // possibilité d'inclure un traitement à la création de l'objet
+            this.nom = nom;
+            this.prix = prix;
+        }
+
+        // appel de fonction en tant que constructeur
+        const produit1 = new Produit('casquette', 10);
+        console.log(produit1);
+
+        // Prototype = propriété lié à une fonction constructeur
+        // utilisable par tous les objets créés via ce constructeur
+        Produit.prototype.afficher = function() {
+            return this.nom + ', ' + this.prix + '€';
+        }
+
+        // la fonction n'a "afficher" n'a pas besoin d'exister au moment de la construction
+        // uniquement au moment de l'appel
+        console.log(produit1.afficher());
+
+        // Attention, c'est différent d'attacher la fonction sans le prototype
+        Produit.afficher2 = function() {
+            console.log('afficher2');
+        }
+
+        // produit1.afficher2(); // TypeError: is not a function
+        // ça OK, mais plus d'accès à la variable "this"
+        // Un peu comme une méthode "statique"
+        Produit.afficher2(); 
+
+
+
+    </script>
+</body>
+</html>

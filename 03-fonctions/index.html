@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fonctions</title>
+</head>
+<body>
+    <script>
+        // Remontée des déclarations (fonctions, variables, etc.)
+        // Possibilité d'y faire référence avant d'atteindre la ligne
+        addition(3, 4);
+        // console.log(addition2); // undefined
+
+        // Principe générale
+        // 2 parties: définition + appel
+        // I. Définition
+        function addition(a, b) { // définition avec syntaxe déclarative
+            return a + b;
+        }
+
+        const addition2 = function (a, b) { // définition avec syntaxe d'expression
+            return a + b;
+        }
+        // permet de controler la portée: var, let, const
+        // remontée des déclarations (symbole addition2), mais pas la définition
+        // possibilité d'appeler après la définition
+
+        const maBiblio = {}; // création d'un objet
+
+        maBiblio.addition = function (a, b) { 
+            return a + b;
+        }
+
+        maBiblio.addition(4, 6);
+
+        // paramètre: aucune obligation de respecter un type ou le nombre de paramètres déclaré
+        console.log(addition2(5, ' patates')); // '5 patates'
+        console.log(addition2(5, 5, 7)); // 10
+        console.log(addition2(5)); // NaN
+
+        const addition3 = function (a, b = 3) { // possibilité paramètre par défaut
+            console.log(arguments); // variable locale "auto" pour accéder aux arguments
+            return a + b;
+        }
+        console.log(addition3(5)); // 8
+        console.log(addition3(5, 6, 9, 3, 4));
+
+        // paramètre "reste"
+        function addition4(a, b, ...c) {
+            let result = a + b;
+
+            for(const d of c) {
+                result += d;
+            }
+
+            return result;
+        }
+        console.log(addition4(5, 6, 9, 3, 4));
+
+        // Pas d'obligation d'avoir un type de retour cohérent
+        // Mauvaise pratique, il vaut mieux retourner toujours le même type
+        function mauvaisRetour() {
+            if (3 < 4) {
+                return 'du texte'
+            }
+            return 123;
+        }
+
+        // Fonction très utile pour:
+        //  * Réutiliser du code (appel) = ne pas se répéter (DRY)
+        //  * Subdiviser la fonctionnalité et mieux structurer le code
+        //  * Nommer un sous traitement (introduction du vocabulaire métier)
+        //  * Isoler des (noms de) variables
+
+        // déclaration variable de bloc permet d'éviter les collisions de nommage
+        {
+            const document = 'test';
+        }
+
+        // IIFE: Immediatly Invocated Function Expression
+        // ("expression de fonction")("passage de paramètres")
+        (function () {
+            let variableLocale = 'je suis locale';
+
+            console.log(variableLocale);
+        })();
+
+        console.info('une info');
+        console.warn('un avertissement');
+        console.error('une erreur');
+        console.debug(addition4);
+
+    </script>
+</body>
+</html>

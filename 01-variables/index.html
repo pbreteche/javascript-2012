@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Variables</title>
+</head>
+<body>
+    <h1>Les variables en Javascript éàÏç</h1>
+    <script>
+        let calculInclinaisonPente = 3 + 5; // nom de variable en camelCase
+        // variable = 4 choses:
+        //  * un nom : référence via le code
+        //  * une adresse mémoire : gestion interne par javascript
+        //  * une donnée stockée en mémoire : sous forme d'octets
+        //  * un type de données: permet d'interpréter la donnée (opérations possibles)
+        //    => déterminer auto lors de l'affectation
+        console.log('Résultat', calculInclinaisonPente);
+        // affichage dans la console
+        // autant de valeurs que souhaitées, séparées par une ","
+        // les expression sont interprétées (la valeur dde la variable)
+
+        // Les types de données: 2 famille de types de données
+        // I. les types primitifs
+        // I.1 number (virgule flottante, double précision)
+        //    pas d'entier
+        let unNombre1 = 3.1415;
+        let unNombre2 = 1000003.1415;
+        let unNombre3 = 1 / 3; // 1.3333333333333
+
+        let tresGrand = 1e255;
+        let tresPetit = 1e-255;
+        // risque de donner 0 si tresPetit masqué par l'erreur de tresGrand
+        let resultat = tresGrand + tresPetit - tresGrand;
+
+        // il y a une limite à la précision, il faut rester dans les mêmes échelles
+        // 5 opérateurs arithmétiques "binaires" (2 opérandes) + - * / % **
+        // 2 opérateurs arithmétiques "unaires" (1 opérande) + -
+
+        // I.2 string
+        //    pas de type "char" ou caractère
+        let unTexte1 = 'voici un texte'; // écriture de préférence car " -> HTML et ' -> js
+        let unTexte2 = "voici un second texte";
+        // 1 seul opérateur, la concaténation +
+
+        // I.3 boolean
+        let unBooleen1 = true;
+        let unBooleen2 = false;
+        // cas d'utilisation des booléens: Si données du formulaire sont valide (vrai/faux)
+        // alors je les envoie au serveur
+        // opérateur unaire ! négation
+        // opérateurs binaires && "ET", || "OU"
+
+        // I.4 null
+        let unNull = null; // pas de stockage en mémoire
+        // pas d'opérateur spécifique
+
+        // I.5 undefined
+        let nonDefini; // aucun valeur n'a jamais été affectée
+        
+        // II. types référence
+        unNombre1 = unNombre2 // sur un type primitif, il y a copie de la valeur de unNombre2 vers unNombre1
+        let fruits1 = ['ananas', 'banane'];
+        let fruits2 = fruits1; // affection par référence: 2 variables, mais même adresse mémoire
+
+        // operator precedence: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
+
+        let index = 1;
+        index++; // opérateur postfix: expression vaut 1, et index prendra la valeur 2 à partir de la prochaine opération
+
+        '12' == 12 //true
+        '12' === 12 // false
+
+        let total = 0;
+        total = total + 3 * 4;
+        total += 3 * 4;
+
+        // portée de bloc
+        // Déclarer des blocs d'instruction avec "{" et "}"
+
+        let total2 = 3;
+        {
+            let valeurIntermédiaire = 2; // variable "locale" au bloc
+            let total2 = 7; // variable locale total2 "masque" la variable du niveau parent
+            // attention! mauvaise pratique de masquer des variables => porte à confusion
+            total2 += valeurIntermédiaire;
+            // la donnée locale total2 est perdue
+        } // valeurIntermédiaire disparait à la sortie du bloc
+        console.log(total2);
+        // console.log valeurIntermédiaire); // reference error: valeurIntermédiaire incconnue
+
+        let nb1 = 4;
+        let nb2 = 5;
+
+        {
+            let tmp = nb1;
+            nb1 = nb2;
+            nb2 = tmp;
+        }
+
+        nb2 -= nb1; // nb2 <- nb2 - nb1
+        nb1 += nb2; // nb1 <- nb1 + nb2 -nb1 (~ nb2)
+        nb2 = nb1 - nb2 // nb2 - (nb2 - nb1) (~ nb1)
+
+        console.log(nb1, nb2);
+
+        const textNonModifiable = 'bonjour'; // comme "let", mais on ne peut pas réaffecter
+        // déclare une variable "constante"
+        var ancienLet = 'bonsoir'; // pas encore déprécié, mais devenu peu utile depuis let
+        // car ne limite pas la portée au bloc
+
+
+    </script>
+</body>
+</html>

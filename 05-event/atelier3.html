@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGU</title>
+</head>
+<body>
+    <h1>Conditions générales</h1>
+
+    <p>En utilisant ce service, vous acceptez les conditions générales.</p>
+    <button id="cgu-button">Voir le détail</button>
+    <div id="cgu-detail">
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum necessitatibus architecto facere provident nulla excepturi quia illo odio sapiente. Fuga, suscipit. Adipisci quaerat modi mollitia libero, officia itaque eum ad!</p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum necessitatibus architecto facere provident nulla excepturi quia illo odio sapiente. Fuga, suscipit. Adipisci quaerat modi mollitia libero, officia itaque eum ad!</p>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum necessitatibus architecto facere provident nulla excepturi quia illo odio sapiente. Fuga, suscipit. Adipisci quaerat modi mollitia libero, officia itaque eum ad!</p>
+    </div>
+    <p>La suite de la page</p>
+    <script>
+        const btn = document.querySelector('#cgu-button');
+        const detail = document.querySelector('#cgu-detail');
+        
+        window.addEventListener('load', function() {
+            detail.hidden = true;
+        });
+
+        btn.addEventListener('click', function() {
+            detail.hidden = !detail.hidden;
+
+            if (detail.hidden) {
+                btn.textContent = 'Voir le détail';
+            }
+            else {
+                btn.textContent = 'Masquer le détail';
+            }
+            // Même chose, mais écrit avec l'opérateur ternaire:
+            btn.textContent = detail.hidden ? 'Voir le détail' : 'Masquer le détail';
+
+        });
+    </script>
+</body>
+</html>

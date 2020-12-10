@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commande</title>
+</head>
+<body>
+    <script>
+        const Commande = function() {
+            this.produits = [];
+            this.total = 0;
+        };
+
+        // Fonction attachée au prototype, devrait être appelé en tant que méthode
+        Commande.prototype.ajouter = function(paramProduit, paramQte=1) {
+            this.produits.push({ produit: paramProduit, qte: paramQte });
+            this.total += paramProduit.prix * paramQte;
+        }
+
+        const Produit = function(nom, prix = 0) {
+            this.nom = nom;
+            this.prix = prix;
+        }
+
+        // Appels de fonction en tant que constructeur
+        const casquette = new Produit('casquette', 10);
+        const basket = new Produit('basket', 40);
+        const maCommande = new Commande();
+
+        // Appels de fonction en tant que méthode
+        maCommande.ajouter(casquette, 2);
+        maCommande.ajouter(basket);
+
+        console.log(maCommande);
+
+    </script>
+</body>
+</html>

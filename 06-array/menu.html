@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu</title>
+    <style>
+        .navbar ul { /* ul qui descendent de .navbar */
+            list-style-type: none; /* masque les puces */
+        }
+
+        .navbar > ul { /* ul enfant de .navbar */
+            /* https://css-tricks.com/snippets/css/a-guide-to-flexbox/ */
+            display: flex;
+        }
+
+        .closed {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Exemple de menu</h1>
+    <nav class="navbar">
+        <ul>
+            <li>
+                <a class="menu-trigger">Langages</a>
+                <ul>
+                    <li><a href="#">HTML</a></li>
+                    <li><a href="#">CSS</a></li>
+                    <li><a href="#">Javascript</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="menu-trigger">Navigateurs</a>
+                <ul>
+                    <li><a href="#">Firefox</a></li>
+                    <li><a href="#">Chrome</a></li>
+                    <li><a href="#">Safari</a></li>
+                    <li><a href="#">Edge</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="menu-trigger">Frameworks</a>
+                <ul>
+                    <li><a href="#">Angular</a></li>
+                    <li><a href="#">React</a></li>
+                    <li><a href="#">Vue</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <script>
+        // DOMContentLoaded similaire à l'événement "load", mais se déclenche un peu plus tôt
+        // DOMContentLoaded: une fois que le DOM est construit
+        // Load: une fois que toutes les ressources ont été chargées
+
+        // Ici, non strictement nécessaire car le script ne manipule que les éléments chargés au dessus
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pour délimiter notre zone de travail, on sélectionne en premiere l'élément racine
+            const navbar = document.querySelector('.navbar');
+            // Les autres sélections peuvent se faire à partir de la navbar
+            // au lieu de l'ensemble du document
+            // NodeList: peut se manipuler exactement comme un tableau
+            const subMenus = navbar.querySelectorAll('ul ul');
+            const menuTriggers = navbar.querySelectorAll('.menu-trigger');
+            // utilisé uniquement dans la première version
+            // let openedSubMenu = null;
+            
+            const closeAll = function() {
+                // utiliser for..of est très bien aussi
+                subMenus.forEach(function(subMenu) {
+                    // 2 propriétés pour manipuler les classes
+                    //  * className : toutes les classes dans un string comme en HTML
+                    //  * classList : les classes dans un objets "Set",
+                    //         les "Set" sont similaires aux tableaux mais sans gestion d'index
+                    subMenu.classList.add('closed');
+
+                    // masquer en utilisant les classes et la feuille de style
+                    // permet une meilleure séparation entre style (CSS) et comportement (JS)
+                });
+            }
+
+            closeAll();
+
+            menuTriggers.forEach(function(trigger) {
+                trigger.addEventListener('click', function() {
+                    // pseudo-variable "this": déterminée par la façon d'appeler la fonction
+                    // Le gestionnaire d'événement prend en charge l'appel
+                    // il détermine "this" comme étant l'élément du DOM aquel est attaché l'écouteur
+                    console.log(this);
+
+                    // this.nextElementSibling: élément HTML suivant (partager le même parent)
+                    // /!\ this.nextElement: prochain élément Node (aussi bien HTML ou textuel)
+                    // this: lien du menu "trigger"
+                    // nextElementSibling: sous-menu
+                    const subMenu = this.nextElementSibling;
+                
+                    // subMenu.classList.toggle('closed');
+                    /* équivalent à : 
+                    if (subMenu.classList.contains('closed')) {
+                        // ouverture du menu
+                        subMenu.classList.remove('closed');
+                        // si un autre était déjà ouverert on le ferme
+                        // opérateur && : ET logique
+                        // le second membre est évalué si le premier est VRAI
+                        // afin d'éviter la possible erreur "pas de propriété classList sur null"
+                        openedSubMenu && openedSubMenu.classList.add('closed');
+                        // on considère celui qui vient d'être ouvert comme le menu actuellement ouvert
+                        openedSubMenu = subMenu;
+                    }
+                    else {
+                        subMenu.classList.add('closed');
+                        openedSubMenu = null;
+                    }*/
+                    
+                    if (subMenu.classList.contains('closed')) {
+                        closeAll();
+                        subMenu.classList.remove('closed');
+                    }
+                    else {
+                        subMenu.classList.add('closed');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
