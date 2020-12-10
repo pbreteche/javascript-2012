@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fonction fléchée</title>
+</head>
+<body>
+    <script>
+        // fonction, syntaxe d'expression
+        const fonction1 = function(a, b) {
+            return a + b;
+        }
+
+        // Équivalent, en fonction fléchée
+        // syntaxe d'expression disponible uniquement
+        // pas d'accolades si le corps de foncion se limite à la seule instruction "return"
+        // pas de parenthèses si le nombre de paramètres est exactement 1
+        const fonction2 = (a, b) => a + b;
+
+        // syntaxe simplifiée notable notamment pour les fonctions de rappel (callback)
+        // Dans ce type cas, deuxième avantage, les fonctions fléchées sont plus légères
+        //  -> pas création de scope associée à la fonction
+        //  -> elle s'exécute directement dans le scope où elle est déclarée
+        const double = [1, 2, 3, 4].map(x => 2 * x);
+        console.log(double);
+
+        // Reproduire en mode fléchée la fonction suivante:
+        const fonction3 = function() {
+            return {
+                prop1: 'Bonjour',
+                prop2: 'à tous'
+            };
+        }
+
+        // Attention si l'expression est un objet littéral, confusion ente le "{" de l'objet et celle du corps de fonction
+        // soit inclure l'expression dans "()"
+        // soit ne pas utiliser le raccourci syntaxique
+        const function4 = () => ({ prop1: 'Bonjour', prop2: 'à tous' });
+        const function5 = () => {
+            return {
+                prop1: 'Bonjour',
+                prop2: 'à tous'
+            };
+        };
+
+        console.log(function4());
+
+        // Exemple de confusion avec l'objet "this"
+        // S'inspire du style de programmation "Web Component"
+        class UneClasse {
+            constructor(selector) {
+                this.root = document.querySelector(selector);
+            }
+
+            refresh() {
+                this.root.innerHTML = '<button>click</button>';
+                const button = this.root.querySelector('button')
+                button.addEventListener('click', function() {
+                    this.doSomething(); // erreur
+                    // la fonction de rappel définit son propre "scope"
+                    // this est déterminé ici par le gestionnaire d'événement
+                });
+
+                // solution 1: capturer le this parent dans une autre variable
+                const that = this;
+                button.addEventListener('click', function() {
+                    that.doSomething(); 
+                });
+
+                // solution 2: utiliser une fonction fléchée
+                button.addEventListener('click', () => this.doSomething());
+
+            }
+
+            doSomething() {
+                console.log('action à déclencher');
+            }
+        }
+
+
+    </script>
+</body>
+</html>
