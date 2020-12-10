@@ -28,6 +28,10 @@ document.addEventListener('DOMContentLoaded', function(){
             +document.querySelector('#new-product-qte').value
         );
 
-        console.log(maCommande);
+        rootElement.innerHTML = maCommande.toHTML();
+        // réinitialise le formulaire
+        // this fait référence à l'élément sur lequel l'écouteur a été posé
+        // this est déterminé au moment de l'appel par le gestionnaire d'événement
+        this.reset();
     });
 });
