@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise</title>
+</head>
+<body>
+    <script>
+        /**
+         * Promise (promesse)
+         *   type d'objet ayant pour objectif de gérer des traitements asynchrones
+         *   permet d'attacher un callback de succès et un autre pour l'échec
+         * 
+         *   l'attachement des callbacks est similaire au gestionnaire d'événement
+         */
+
+         // Création d'une promesse personnalisée
+         // Une promesse est construite autour d'une fonction "executor" qui a pour charge d'exécuter le traitement asynchrone
+         // l'executor attend quant à lui 2 fonctions qui seront déclenchées respectivement en cas de succès ou d'échec (nommées ici resolve et reject)
+         const maPromesse = new Promise((resolve, reject) => {
+            console.log('Début du traitement');
+
+            // setTimeout permet de déclencher une fonction après un délai
+            // ici, après 500ms
+            // Dans notre exemple, c'est pour simuler un traitement asynchrone
+            // Avec HTTP, l'asynchrone sera du au temps de communication entre le client et le serveur
+            setTimeout(() => {
+                console.log('le traitement est terminé');
+                resolve('résultat de succès');
+            }, 500);
+         });
+
+         // then permet d'attacher un callback qui s'exécutera en cas de succès
+         // catch en cas d'échec
+         maPromesse.then(successMessage => console.log(successMessage))
+            .then(msg => console.log('second traitement de succès', msg))
+            .catch(error => console.log('traitement de error'));
+    </script>
+</body>
+</html>

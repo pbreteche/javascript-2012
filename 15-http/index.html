@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+</head>
+<body>
+    <div id="article-placeholder"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const placeholder = document.querySelector('#article-placeholder');
+
+            // Création du dialogue HTTP avec la fonction fetch
+            // fetch retourne une promesse et nous fournira
+            //  * un objet Response en cas de succès
+            //  * une Exception (non typée) en cas d'échec
+            fetch('article.html')
+                // attache la fonction callback en cas de succès
+                // la fonction text() de la réponse renvoie elle aussi une autre promesse
+                // sur cette seconde promesse, on attache le traitement du contenu de la réponse
+                .then(response => {
+                    if (!response.ok) {
+                        throw `Response is not successful (status: ${response.status})`;
+                    }
+                    // response.json() permet de "parser" le contenu au format JSON
+                    response.text().then(htmlContent => placeholder.innerHTML = htmlContent);
+                })
+                .catch(reason => console.error('Échec HTTP: ', reason));
+
+            // Exemple de récupération de données au format JSON
+            fetch('data.json').then(response => response.json().then(
+                data => {
+                    data.memberSince = new Date(data.memberSince);
+                    console.log(data);
+                }
+            ));
+        });
+    </script>
+</body>
+</html>
