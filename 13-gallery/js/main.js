@@ -5,7 +5,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const myGallery = new Gallery('#app-gallery');
 
-    myGallery.start();
+    myGallery.startOldSyntax();
 });
 
 

@@ -1,4 +1,4 @@
-const IMAGES = [
+[
     "acatos.png",
     "albator.png",
     "barracuda.png",
@@ -18,4 +18,4 @@ const IMAGES = [
     "tux-nroses.png",
     "tux-slipknot.png",
     "tuxwalker.png"
-];
+]

@@ -4,10 +4,42 @@ class Gallery {
 
     constructor(selector) {
         this.root = document.querySelector(selector);
-        this.images = IMAGES;
+        this.images = [];
     }
 
     start() {
+        // Pour simuler un temps de latence dans le dialogue HTTP
+        setTimeout(() => {
+            fetch('js/images.json').then(response => response.json().then(
+                images => {
+                    this.images = images;
+                    this.renderAll();
+                }
+            ));
+        }, 2000);// ajout de 2000ms de délai
+        this.root.innerHTML = '<p>En cours de chargement</p>';
+    }
+
+    startOldSyntax() {
+        // objet de gestion d'un échange HTTP
+        const xhr = new XMLHttpRequest();
+        
+        // Préparation de la requête
+        xhr.open('GET', 'js/images.json');
+
+        // Paramétrage de l'objet XHR (ajout d'en-tête HTTP, attachement d'écouteurs)
+        // syntaxe d'écouteur d'événement était utilisée à la place des promesses
+        xhr.addEventListener('load', () => {
+            this.images = JSON.parse(xhr.responseText);
+            this.renderAll();
+        });
+
+        // Transmission de l'ensemble de la requête sur le réseau
+        // Possibilité de transmettre le "payload"
+        xhr.send();
+    }
+
+    renderAll() {
         this.root.innerHTML = `<div class="viewer">
             <img src="images/${this.images[0]}">
             </div>` + this.renderList();
