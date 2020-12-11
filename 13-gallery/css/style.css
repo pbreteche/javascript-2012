@@ -1,0 +1,18 @@
+
+/*
+    Liste d'images
+*/
+#app-gallery ul {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+}
+
+#app-gallery ul a {
+    cursor: pointer;
+}
+
+#app-gallery ul img {
+    height: 4em;
+    display: block;
+}
