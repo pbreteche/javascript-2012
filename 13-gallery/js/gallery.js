@@ -1,6 +1,6 @@
 'use strict';
 
-class Gallery {
+export class Gallery {
 
     constructor(selector) {
         this.root = document.querySelector(selector);
